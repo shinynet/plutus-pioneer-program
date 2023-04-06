@@ -40,7 +40,6 @@ library
                         Homework2
                         NFT
                         Signed
-                        MintAsset
 						
 test-suite week05-homework
     import:             common-all-tests
