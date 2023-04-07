@@ -34,4 +34,5 @@ library
     import:             common-all
     hs-source-dirs:     contracts
     exposed-modules:    MintAsset
+                        EmpAssets
 						

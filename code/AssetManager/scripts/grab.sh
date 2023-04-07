@@ -1,13 +1,13 @@
 #!/bin/bash
 
 name="$1"
-tokenname=$(echo -n "$2" | xxd -ps | tr -d '\n')
-txin="$3"
-collateral="$4"
+emp="$2"
+tokenname=$(echo -n "$3" | xxd -ps | tr -d '\n')
+txin="$4"
 assets=/workspace/code/AssetManager/assets
 keypath=/workspace/keys
-body="$assets/burn-asset.txbody"
-tx="$assets/burn-asset.tx"
+body="$assets/xfer-asset-$emp.txbody"
+tx="$assets/xfer-asset-$emp.tx"
 
 # Calculate the PolicyId
 policyid=$(
@@ -16,22 +16,18 @@ policyid=$(
 )
 
 # Build the transaction
-cardano-cli transaction build \
+cardano-cli transaction build  \
     --babbage-era \
     --testnet-magic 2 \
     --tx-in "$txin" \
-    --tx-in 2f5b00f6175716377f2d2011c6c25deea880b840d6d382ce112d66397dc89f72#0 \
-    --tx-in 2f5b00f6175716377f2d2011c6c25deea880b840d6d382ce112d66397dc89f72#1 \
+    --tx-in-script-file "$assets/homework1.plutus" \
+    --tx-in-inline-datum-present \
+    --tx-in-redeemer-file "$assets/homework1-redeemer-success.json" \
     --tx-in-collateral "$collateral" \
-    --tx-out $(cat $keypath/$name.addr)+2000000 \
-    --mint "-1 $policyid.$tokenname" \
-    --minting-script-file "$assets/mint-asset.plutus" \
-    --mint-redeemer-file "$assets/unit.json" \
-    --change-address $(cat "$keypath/$name.addr") \
-    --required-signer "$keypath/$name.skey" \
-    --protocol-params-file "$assets/protocol-parameters.json" \
+    --change-address "$(cat "$keypath/$name.addr")" \
+    --protocol-params-file "$pp" \
     --out-file "$body"
-    
+
 # Sign the transaction
 cardano-cli transaction sign \
     --tx-body-file "$body" \

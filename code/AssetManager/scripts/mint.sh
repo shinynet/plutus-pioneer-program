@@ -1,25 +1,17 @@
 #!/bin/bash
 
-
 name="$1"
 tokenname=$(echo -n "$2" | xxd -ps | tr -d '\n')
 txin="$3"
-assets=/workspace/code/Week05/assets
+assets=/workspace/code/AssetManager/assets
 keypath=/workspace/keys
-body="$assets/signed-mint.txbody"
-tx="$assets/signed-mint.tx"
-outaddress=$(cat $keypath/$name.addr)
-
-# Build minting address 
-cardano-cli address build \
-    --payment-script-file "$assets/signed.plutus" \
-    --testnet-magic 2 \
-    --out-file "$assets/homework1.addr"
+body="$assets/mint-asset.txbody"
+tx="$assets/mint-asset.tx"
 
 # Calculate the PolicyId
 policyid=$(
     cardano-cli transaction policyid \
-        --script-file "$assets/signed.plutus"
+        --script-file "$assets/mint-asset.plutus"
 )
 
 # Build the transaction
@@ -30,7 +22,7 @@ cardano-cli transaction build \
     --tx-in-collateral "$txin" \
     --tx-out $(cat $keypath/$name.addr)+2000000+"1 $policyid.$tokenname" \
     --mint "1 $policyid.$tokenname" \
-    --minting-script-file "$assets/signed.plutus" \
+    --minting-script-file "$assets/mint-asset.plutus" \
     --mint-redeemer-file "$assets/unit.json" \
     --change-address $(cat "$keypath/$name.addr") \
     --required-signer "$keypath/$name.skey" \
