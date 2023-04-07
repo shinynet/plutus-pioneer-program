@@ -9,12 +9,6 @@ keypath=/workspace/keys
 body="$assets/xfer-asset-$emp.txbody"
 tx="$assets/xfer-asset-$emp.tx"
 
-# Calculate the PolicyId
-policyid=$(
-    cardano-cli transaction policyid \
-        --script-file "$assets/mint-asset.plutus"
-)
-
 # Build the transaction
 cardano-cli transaction build  \
     --babbage-era \
@@ -26,6 +20,14 @@ cardano-cli transaction build  \
     --tx-in-collateral "$collateral" \
     --change-address "$(cat "$keypath/$name.addr")" \
     --protocol-params-file "$pp" \
+    --out-file "$body"
+
+
+
+
+    --tx-out $(cat $assets/$emp-assets.addr)+2000000+"1 $policyid.$tokenname" \
+    --change-address $(cat "$keypath/$name.addr") \
+    --protocol-params-file "$assets/protocol-parameters.json" \
     --out-file "$body"
 
 # Sign the transaction

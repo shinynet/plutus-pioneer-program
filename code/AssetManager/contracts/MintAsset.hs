@@ -16,7 +16,7 @@ import           PlutusTx.Prelude          (Bool, traceIfFalse, ($), (.),
                                             Maybe (Just), error, any, (==), (&&))
 import           Prelude                   (IO)
 import           Utilities                 (currencySymbol, wrapPolicy, writePolicyToFile)
-import Plutus.V1.Ledger.Address ( toPubKeyHash )
+import Plutus.V1.Ledger.Address            ( toPubKeyHash )
 
 {-# INLINABLE mkPolicy #-}
 mkPolicy :: PubKeyHash -> () -> ScriptContext -> Bool
