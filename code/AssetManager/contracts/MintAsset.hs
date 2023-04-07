@@ -3,7 +3,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell   #-}
 
-module Signed where
+module MintAsset where
 
 import           Plutus.V2.Ledger.Api      (BuiltinData, CurrencySymbol,
                                             MintingPolicy, PubKeyHash,
@@ -12,7 +12,7 @@ import           Plutus.V2.Ledger.Api      (BuiltinData, CurrencySymbol,
                                             mkMintingPolicyScript, txOutAddress)
 import           Plutus.V2.Ledger.Contexts (txSignedBy)
 import qualified PlutusTx
-import           PlutusTx.Prelude          (Bool, traceIfFalse, ($), (.), Maybe (Just), error, any, (==), (||))
+import           PlutusTx.Prelude          (Bool, traceIfFalse, ($), (.), Maybe (Just), error, any, (==), (&&))
 import           Prelude                   (IO)
 import           Utilities                 (currencySymbol, wrapPolicy,
                                             writeCodeToFile, writePolicyToFile)
@@ -21,7 +21,7 @@ import Plutus.V1.Ledger.Address ( toPubKeyHash )
 {-# INLINABLE mkSignedPolicy #-}
 mkSignedPolicy :: PubKeyHash -> () -> ScriptContext -> Bool
 mkSignedPolicy pkh () ctx = traceIfFalse "missing signature" validSig 
-                         || traceIfFalse "disallowed output" validOut
+                         && traceIfFalse "disallowed output" validOut
     -- TODO: while we're checking whether the outputs contain the pkh
     -- we should also check the pkh output is the one with the token
     where
