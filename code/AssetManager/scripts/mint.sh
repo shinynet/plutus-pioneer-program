@@ -20,7 +20,7 @@ cardano-cli transaction build \
     --testnet-magic 2 \
     --tx-in "$txin" \
     --tx-in-collateral "$txin" \
-    --tx-out $(cat $keypath/$name.addr)+2000000+"1 $policyid.$tokenname" \
+    --tx-out $(cat $keypath/$name.addr)+10000000+"1 $policyid.$tokenname" \
     --mint "1 $policyid.$tokenname" \
     --minting-script-file "$assets/mint-asset.plutus" \
     --mint-redeemer-file "$assets/unit.json" \

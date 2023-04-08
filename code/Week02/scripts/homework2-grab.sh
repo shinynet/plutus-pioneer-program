@@ -5,13 +5,11 @@ keypath=/workspace/keys
 name="$1"
 collateral="$2"
 txin="$3"
-
 pp="$assets/protocol-parameters.json"
 body="$assets/homework2-grab.txbody"
 tx="$assets/homework2-grab.tx"
 
 # Query the protocol parameters \
-
 cardano-cli query protocol-parameters \
     --testnet-magic 2 \
     --out-file "$pp"
