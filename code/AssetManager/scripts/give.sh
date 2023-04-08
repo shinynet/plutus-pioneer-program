@@ -25,7 +25,6 @@ cardano-cli address build \
 cardano-cli transaction build  \
     --babbage-era \
     --testnet-magic 2 \
-    --tx-in "d4ba9ed969fd18d3edb2ef07c7d29d41493f71b4771489896563976631d13ae9#1" \
     --tx-in "$txin" \
     --tx-out $(cat $assets/$emp-script.addr)+5000000+"1 $policyid.$tokenname" \
     --tx-out-inline-datum-file "$assets/$name-pkh-datum.json" \
