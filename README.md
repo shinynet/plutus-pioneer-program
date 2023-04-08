@@ -9,6 +9,8 @@ a business or corporation that lends out devices (laptops, tablets, etc) to
 employees. These devices are represented by native assets and the blockchain is
 used to track possession of these assets.
 
+![flow diagram](docs/resources/PlutusAssetManager.png)
+
 ## Scenario 1: A new employee (Bob) joins the company and needs a company laptop. The company orders the laptop and once it arrives, a token representing that laptop needs minted.
 ---
 
