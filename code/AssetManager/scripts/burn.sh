@@ -20,8 +20,6 @@ cardano-cli transaction build \
     --babbage-era \
     --testnet-magic 2 \
     --tx-in "$txin" \
-    --tx-in 2f5b00f6175716377f2d2011c6c25deea880b840d6d382ce112d66397dc89f72#0 \
-    --tx-in 2f5b00f6175716377f2d2011c6c25deea880b840d6d382ce112d66397dc89f72#1 \
     --tx-in-collateral "$collateral" \
     --tx-out $(cat $keypath/$name.addr)+2000000 \
     --mint "-1 $policyid.$tokenname" \
